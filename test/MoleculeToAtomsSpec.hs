@@ -13,6 +13,7 @@ spec = do
     assertParse "H2O" [("H",2),("O",1)] "water"
     assertParse "Mg(OH)2" [("Mg",1),("O",2),("H",2)] "magnesium hydroxide"
     assertParse "K4[ON(SO3)2]2" [("K",4),("O",14),("N",2),("S",4)] "Fremy's salt"
+    assertParse "(C5H5)Fe(CO)2CH3" [("C",8),("Fe",1),("H",8),("O",2)] "cyclopentadienyliron dicarbonyl dimer"
   
   describe "Errors" $ do
     assertFail "pie" "Not a valid molecule"
