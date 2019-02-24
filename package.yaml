@@ -1,10 +1,10 @@
 name:                codewars
 version:             0.1.0.0
-github:              "githubuser/codewars"
+github:              "BoeingX/codewars"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2019 Author name here"
+author:              "BoeingX"
+maintainer:          "12154983+BoeingX@users.noreply.github.com"
+copyright:           "2019 BoeingX"
 
 extra-source-files:
 - README.md
