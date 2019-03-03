@@ -7,9 +7,10 @@ import MoleculeToAtomsWithAlexHappy.Lexer (Token(..))
 %name parse
 %tokentype { Token }
 %error { parseError }
+%monad { Either String }
 %token
     index           { TIndex $$ } 
-    atom            { TAtom $$ }
+    singleton       { TAtom $$ }
     '('             { TLParen }
     ')'             { TRParen }
     '['             { TLBracket }
@@ -19,7 +20,7 @@ import MoleculeToAtomsWithAlexHappy.Lexer (Token(..))
 %%
 
 Molecule : {- empty -} { Nil }
-         | atom Index Molecule { Compound (Atom $1 $2) $3 }
+         | singleton Index Molecule { Compound (Singleton $1 $2) $3 }
          | '(' Molecule ')' Index Molecule { Compound (Simple $2 $4) $5}
          | '[' Molecule ']' Index Molecule { Compound (Simple $2 $4) $5}
          | '{' Molecule '}' Index Molecule { Compound (Simple $2 $4) $5}
@@ -28,12 +29,12 @@ Index : {- empty -} { One }
       | index {Mul $1 }
 
 {
-parseError :: [Token] -> a
-parseError _ = error "Parse error"
+parseError :: [Token] -> Either String a
+parseError _ = Left "Not a valid molecule"
 
 data Index = One | Mul Int deriving (Eq, Show)
 
-data Molecule = Atom String Index
+data Molecule = Singleton String Index
               | Simple Molecule Index
               | Compound Molecule Molecule
               | Nil

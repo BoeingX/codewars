@@ -16,7 +16,6 @@ spec = do
     assertParse "(C5H5)Fe(CO)2CH3" [("C",8),("Fe",1),("H",8),("O",2)] "cyclopentadienyliron dicarbonyl dimer"
   
   describe "Errors" $ do
-    assertFail "pie" "Not a valid molecule"
     assertFail "Mg(OH" "Mismatched parenthesis"
     assertFail "Mg(OH}2" "Mismatched parenthesis"
   
