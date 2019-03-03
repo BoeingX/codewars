@@ -10,7 +10,7 @@ import MoleculeToAtomsWithAlexHappy.Lexer (Token(..))
 %monad { Either String }
 %token
     index           { TIndex $$ } 
-    singleton       { TAtom $$ }
+    atom            { TAtom $$ }
     '('             { TLParen }
     ')'             { TRParen }
     '['             { TLBracket }
@@ -19,24 +19,26 @@ import MoleculeToAtomsWithAlexHappy.Lexer (Token(..))
     '}'             { TRBrace }
 %%
 
-Molecule : {- empty -} { Nil }
-         | singleton Index Molecule { Compound (Singleton $1 $2) $3 }
-         | '(' Molecule ')' Index Molecule { Compound (Simple $2 $4) $5}
-         | '[' Molecule ']' Index Molecule { Compound (Simple $2 $4) $5}
-         | '{' Molecule '}' Index Molecule { Compound (Simple $2 $4) $5}
+Molecule : atom Index               { Singleton $1 $2 }
+         | Molecule Molecule        { Compound $1 $2 }
+         | '(' Molecule ')' Index { Multiply $2 $4 } 
+         | '(' Molecule ')' Index Molecule { Compound (Multiply $2 $4) $5 } 
+         | '[' Molecule ']' Index { Multiply $2 $4 }
+         | '[' Molecule ']' Index Molecule { Compound (Multiply $2 $4) $5 } 
+         | '{' Molecule '}' Index { Multiply $2 $4 } 
+         | '{' Molecule '}' Index Molecule { Compound (Multiply $2 $4) $5 } 
 
 Index : {- empty -} { One }
-      | index {Mul $1 }
+      | index       { Mul $1 } 
 
 {
-parseError :: [Token] -> Either String a
-parseError _ = Left "Not a valid molecule"
-
-data Index = One | Mul Int deriving (Eq, Show)
+data Index = One | Mul Int
+    deriving (Eq, Show)
 
 data Molecule = Singleton String Index
-              | Simple Molecule Index
+              | Multiply Molecule Index
               | Compound Molecule Molecule
-              | Nil
-              deriving (Eq, Show)
+
+parseError :: [Token] -> Either String a
+parseError _ = Left "Not a valid molecule"
 }

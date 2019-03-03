@@ -5,8 +5,7 @@ import MoleculeToAtomsWithAlexHappy.Grammar
 
 import qualified Data.Map as M
 
-type Atom = String
-type Composition = M.Map Atom Int
+type Composition = M.Map String Int
 
 mul :: Index -> Composition -> Composition
 mul One = id
@@ -16,11 +15,9 @@ merge :: Composition -> Composition -> Composition
 merge = M.unionWith (+)
 
 eval :: Molecule -> Composition
-eval Nil = M.empty
 eval (Singleton s i) = mul i (M.fromList [(s, 1)])
-eval (Simple m i) = mul i (eval m)
+eval (Multiply m i) = mul i (eval m)
 eval (Compound m1 m2) = merge (eval m1) (eval m2)
-
 
 parseMolecule :: String -> Either String [(String,Int)]
 parseMolecule formula = M.toList . eval <$> parse (alexScanTokens formula)
