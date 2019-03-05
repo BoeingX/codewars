@@ -19,25 +19,30 @@ import MoleculeToAtomsWithAlexHappy.Lexer (Token(..))
     '}'             { TRBrace }
 %%
 
-Molecule : atom Index               { Singleton $1 $2 }
-         | Molecule Molecule        { Compound $1 $2 }
-         | '(' Molecule ')' Index { Multiply $2 $4 } 
-         | '(' Molecule ')' Index Molecule { Compound (Multiply $2 $4) $5 } 
-         | '[' Molecule ']' Index { Multiply $2 $4 }
-         | '[' Molecule ']' Index Molecule { Compound (Multiply $2 $4) $5 } 
-         | '{' Molecule '}' Index { Multiply $2 $4 } 
-         | '{' Molecule '}' Index Molecule { Compound (Multiply $2 $4) $5 } 
+Molecule : M                 { Molecule $1 }
+         | Molecule Molecule { Compound $1 $2 }
+
+M : atom Index              { Singleton $1 $2 }
+  | '(' Molecule ')' Index  { Multiply $2 $4 }
+  | '[' Molecule ']' Index  { Multiply $2 $4 }
+  | '{' Molecule '}' Index  { Multiply $2 $4 }
 
 Index : {- empty -} { One }
       | index       { Mul $1 } 
 
 {
-data Index = One | Mul Int
+type Atom = String
+
+data Molecule = Molecule M 
+              | Compound Molecule Molecule
     deriving (Eq, Show)
 
-data Molecule = Singleton String Index
-              | Multiply Molecule Index
-              | Compound Molecule Molecule
+data M = Singleton Atom Index
+       | Multiply Molecule Index
+    deriving (Eq, Show)
+
+data Index = One | Mul Int
+    deriving (Eq, Show)
 
 parseError :: [Token] -> Either String a
 parseError _ = Left "Not a valid molecule"
