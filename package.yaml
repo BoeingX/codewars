@@ -24,6 +24,7 @@ dependencies:
 - array
 - containers
 - regex-pcre
+- random
 
 build-tools:
 - alex
