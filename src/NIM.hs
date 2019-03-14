@@ -37,7 +37,6 @@ The test suite is written so that your AI is expected to play 50 games and win e
 -}
 module NIM where
 
-import Data.List
 import Data.Bits
 
 nimSum :: [Int] -> Int
