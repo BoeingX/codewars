@@ -25,6 +25,7 @@ dependencies:
 - containers
 - regex-pcre
 - random
+- QuickCheck
 
 build-tools:
 - alex
@@ -52,6 +53,7 @@ tests:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    #- -freduction-depth=0
     dependencies:
     - codewars
     - hspec
