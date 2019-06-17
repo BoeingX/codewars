@@ -27,6 +27,7 @@ dependencies:
 - random
 - QuickCheck
 - integer-gmp
+- transformers
 
 build-tools:
 - alex
@@ -60,18 +61,3 @@ tests:
     - hspec
     - HUnit
     - QuickCheck
-
-benchmarks:
-  codewars-benchmark:
-    dependencies:
-      - base
-      - criterion
-    ghc-options:
-      - -O2
-      - -rtsopts
-      - -threaded
-      - -with-rtsopts=-N
-    main: Main.hs
-    source-dirs: 
-      - src
-      - benchmark

@@ -1,0 +1,47 @@
+	Sat Jun 15 15:29 2019 Time and Allocation Profiling Report  (Final)
+
+	   codewars-exe +RTS -N -p -RTS -fprof-auto
+
+	total time  =        0.01 secs   (54 ticks @ 1000 us, 4 processors)
+	total alloc =  15,470,176 bytes  (excludes profiling overheads)
+
+COST CENTRE     MODULE SRC                          %time %alloc
+
+height''.go.k'  Main   app/Main.hs:21:27-51          37.0    8.3
+height''.go.x'  Main   app/Main.hs:18:27-54          20.4   57.9
+height''.go.s'  Main   app/Main.hs:20:27-49          14.8   16.5
+height''.go     Main   app/Main.hs:(15,15)-(21,51)   14.8    8.3
+height''.go.x'' Main   app/Main.hs:19:27-43          13.0    8.3
+
+
+                                                                                           individual      inherited
+COST CENTRE           MODULE                SRC                         no.     entries  %time %alloc   %time %alloc
+
+MAIN                  MAIN                  <built-in>                  148          0    0.0    0.4   100.0  100.0
+ CAF                  GHC.Conc.Signal       <entire-module>             259          0    0.0    0.0     0.0    0.0
+ CAF                  GHC.IO.Encoding       <entire-module>             249          0    0.0    0.0     0.0    0.0
+ CAF                  GHC.IO.Encoding.Iconv <entire-module>             247          0    0.0    0.0     0.0    0.0
+ CAF                  GHC.IO.Handle.FD      <entire-module>             239          0    0.0    0.2     0.0    0.2
+ CAF                  GHC.IO.Handle.Text    <entire-module>             237          0    0.0    0.0     0.0    0.0
+ CAF                  GHC.Event.Thread      <entire-module>             200          0    0.0    0.0     0.0    0.0
+ CAF                  GHC.Event.Poll        <entire-module>             164          0    0.0    0.0     0.0    0.0
+ CAF:height2          Main                  <no location info>          293          0    0.0    0.0     0.0    0.0
+  height              Main                  app/Main.hs:24:1-51         300          0    0.0    0.0     0.0    0.0
+ CAF:lvl_r4Ld         Main                  <no location info>          292          0    0.0    0.0     0.0    0.0
+  height''            Main                  app/Main.hs:(10,1)-(21,51)  308          0    0.0    0.0     0.0    0.0
+   height''.go        Main                  app/Main.hs:(15,15)-(21,51) 309          0    0.0    0.0     0.0    0.0
+    height''.go.s'    Main                  app/Main.hs:20:27-49        310          0    0.0    0.0     0.0    0.0
+ CAF:main             Main                  app/Main.hs:27:1-4          295          0    0.0    0.0     0.0    0.0
+  main                Main                  app/Main.hs:(27,1)-(28,31)  296          1    0.0    0.0     0.0    0.0
+ CAF:main1            Main                  <no location info>          294          0    0.0    0.0   100.0   99.2
+  main                Main                  app/Main.hs:(27,1)-(28,31)  298          0    0.0    0.0   100.0   99.2
+   height             Main                  app/Main.hs:24:1-51         299          1    0.0    0.0   100.0   99.2
+    height''          Main                  app/Main.hs:(10,1)-(21,51)  302          1    0.0    0.0   100.0   99.2
+     height''.go      Main                  app/Main.hs:(15,15)-(21,51) 303      80001   14.8    8.3   100.0   99.2
+      height''.go.k'  Main                  app/Main.hs:21:27-51        304      80000   37.0    8.3    37.0    8.3
+      height''.go.s'  Main                  app/Main.hs:20:27-49        307      80000   14.8   16.5    14.8   16.5
+      height''.go.x'  Main                  app/Main.hs:18:27-54        305      80000   20.4   57.9    20.4   57.9
+      height''.go.x'' Main                  app/Main.hs:19:27-43        306      80000   13.0    8.3    13.0    8.3
+ CAF:mo               Main                  app/Main.hs:7:1-2           291          0    0.0    0.0     0.0    0.0
+  mo                  Main                  app/Main.hs:7:1-14          301          1    0.0    0.0     0.0    0.0
+ main                 Main                  app/Main.hs:(27,1)-(28,31)  297          0    0.0    0.1     0.0    0.1
